@@ -2,7 +2,7 @@ package ChatBot;
 
 import java.util.Scanner;
 
-public class ChatBot {
+public class ChatBot<nums> {
     public static void main(String[] args) {
         System.out.println("Hello! My name is Alex.\n" +
                 "I was created in 2021.\n" +
@@ -15,6 +15,17 @@ public class ChatBot {
         int num = input.nextInt();
         for (int i = 0;i < num+1;i++){
             System.out.println(i + " !");
+        }
+        System.out.println("Test\n" +
+                "Say my name:\n1)Alex\n2)Kirill\n3)Ramil\n4)Maks");
+        int nums = input.nextInt();
+        while (true) {
+            if (nums == 1) {
+                System.out.println("Good!");
+                break;
+            } else {
+                System.out.println("Bad!");
+            }
         }
     }
 }
