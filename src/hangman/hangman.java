@@ -8,7 +8,10 @@ import java.util.Scanner;
 class Hangman{
     private final ArrayList<String> words = new ArrayList<String>();
     private ArrayList<String> lettersInWord = new ArrayList<String>();
+    private ArrayList<String> falseLetters = new ArrayList<String>();
     private ArrayList<String> word;
+
+    private String alfabet = "qwertyuiopasdfghjklzxcvbnm";
 
     private int HEALTH = 8;
 
@@ -45,8 +48,18 @@ class Hangman{
             System.exit(0);
         }
     }
+
     public void addLetter(String letter){
-        if(word.contains(letter)){
+        if(letter.length()!=1){
+            System.out.println("You should input a single letter.");
+        }
+        else if (!alfabet.contains(letter)){
+            System.out.println("Please enter a lowercase English letter.");
+        }
+        else if (falseLetters.contains(letter)){
+            System.out.println("You've already guessed this letter.");
+        }
+        else if(word.contains(letter)){
             if (lettersInWord.contains(letter)){
                 System.out.println("No improvents");
                 this.HEALTH-=1;
@@ -59,6 +72,7 @@ class Hangman{
         else {
             System.out.println("That letter doesn't appear in the word");
             this.HEALTH-=1;
+            falseLetters.add(letter);
         }
     }
 
@@ -73,6 +87,14 @@ public class hangman {
         System.out.println("HANGMAN:");
         player.createRandomWord();
         while (true) {
+            System.out.println("Type play to play the game, exit to quit:");
+            String start_game = input.next();
+            if (Objects.equals(start_game, "exit")){
+                break;
+            }
+            else if(!Objects.equals(start_game, "play")){
+                continue;
+            }
             player.printSecretWord();
             String letter = input.next();
             if(player.getHEALTH()==0){
