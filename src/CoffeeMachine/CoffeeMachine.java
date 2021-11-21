@@ -2,34 +2,60 @@ package CoffeeMachine;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class CoffeeMachine {
     public static void main(String[] args) {
-        ArrayList<Integer> makeCoffee = new ArrayList<Integer>();
         Scanner input = new Scanner(System.in);
-        System.out.println("Write how many ml of water the coffee machine has:");
-        int water = input.nextInt();
-        System.out.println("Write how many ml of milk the coffee machine has:");
-        int milk = input.nextInt();
-        System.out.println("Write how many grams of coffee beans the coffee machine has:");
-        int beans = input.nextInt();
-        System.out.println("Write how many cups of coffee you will need:");
-        int cups = input.nextInt();
-        makeCoffee.add(water/200);
-        makeCoffee.add(milk/50);
-        makeCoffee.add(beans/200);
-        if(cups*200<=water && cups*50<=milk && cups*15<=beans){
-            System.out.println("Yes, I can make that amount of coffee " + how_many(makeCoffee,cups));
+        int water = 400; int milk = 540; int beans = 120; int cups = 9; int money = 550;
+        System.out.println("Write action (buy, fill, take):");
+        String action = input.next();
+        if (Objects.equals(action, "take")){
+            System.out.println("I gave you " + money);
+            money = 0;
         }
-        else {
-            System.out.println("No, I can make only " + Collections.min(makeCoffee) + " cups of coffee");
+        else if (Objects.equals(action,"fill")){
+            System.out.println("Write how many ml of water you want to add:");
+            water+=input.nextInt();
+            System.out.println("Write how many ml of milk you want to add:");
+            milk += input.nextInt();
+            System.out.println("Write how many grams of coffee beans you want to add:");
+            beans += input.nextInt();
+            System.out.println("Write how many disposable coffee cups you want to add:");
+            cups += input.nextInt();
         }
+        else if (Objects.equals(action, "buy")){
+            System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+            String coffee = input.next();
+            if (Objects.equals(coffee, "1")){
+                water -= 250;
+                cups -=1;
+                beans -= 16;
+                money += 4;
+            }
+            else if (Objects.equals(coffee, "2")){
+                water -= 350;
+                milk -= 75;
+                beans -= 20;
+                money += 7;
+            }
+            else if (Objects.equals(coffee, "3")){
+                water += 200;
+                milk -= 100;
+                beans -= 12;
+                money +=6;
+            }
+        }
+
     }
-    public static String how_many(ArrayList<Integer> makeCoffee, int cups){
-        if (Collections.min(makeCoffee)-cups>0){
-            return ("(and even " + (Collections.min(makeCoffee)-cups) + " more than that)");
-        }
-        return "";
+
+    public static void cIng(int water,int milk,int beans, int cups, int money){
+        System.out.println("The coffee machine has:\n" +
+                water + " of water\n" +
+                 milk + " of milk\n" +
+                beans + " of coffee beans\n" +
+                cups + " of disposable cups\n" +
+                money + " of money");
     }
 }
